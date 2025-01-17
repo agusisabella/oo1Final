@@ -14,6 +14,7 @@ public class Mamifero {
     public Mamifero(String nombre) {
 
         this.nombre = nombre;
+        this.id=nombre;
     }
 
     public Mamifero() {
@@ -91,15 +92,25 @@ public class Mamifero {
     }
 
     public boolean tieneComoAncestroA(Mamifero alguien) {
+        if(this.esAncestro(alguien)) {
+            return false;
+          }else{
+              return this.tieneComoAncestro(alguien);          
+          }
+
+    }
+
+    private boolean tieneComoAncestro(Mamifero alguien){
         if (this.esAncestro(alguien)) {
+            
             return true;
         } else {
             boolean rta = false;
             if (this.getMadre() != null) {
-                rta = this.getMadre().tieneComoAncestroA(alguien);
+                rta = this.getMadre().tieneComoAncestro(alguien);
             }
             if (rta == false && this.getPadre() != null) {
-                rta = this.getPadre().tieneComoAncestroA(alguien);
+                rta = this.getPadre().tieneComoAncestro(alguien);
             }
             return rta;
 
